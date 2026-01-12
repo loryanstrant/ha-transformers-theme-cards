@@ -3,7 +3,7 @@
   "name": "Transformers Theme & Cards",
   "codeowners": ["@loryanstrant"],
   "config_flow": false,
-  "dependencies": [],
+  "dependencies": ["frontend", "lovelace"],
   "documentation": "https://github.com/loryanstrant/ha-transformers-theme-cards",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/loryanstrant/ha-transformers-theme-cards/issues",

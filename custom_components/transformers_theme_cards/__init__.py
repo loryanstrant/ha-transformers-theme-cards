@@ -21,6 +21,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.components.lovelace import dashboard
+import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -29,6 +30,9 @@ DOMAIN = "transformers_theme_cards"
 __version__ = "1.0.0"
 
 CARDS_URL = "/local/transformers/transformers-cards.js"
+
+# Define CONFIG_SCHEMA - this integration requires no configuration
+CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
