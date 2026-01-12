@@ -21,6 +21,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.components.lovelace import dashboard
+from homeassistant.components import frontend
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
@@ -117,12 +118,11 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     
     # Add the resource to Lovelace resources
     try:
-        # Use the lovelace component to add extra JS URL
-        if "lovelace" not in hass.data:
-            hass.data["lovelace"] = {"resources": []}
-        
-        # Add our resource to the lovelace resources
-        hass.components.frontend.add_extra_js_url(hass, CARDS_URL)
+        # Use the frontend component to add extra JS URL
+        # Access the frontend component through hass.data
+        await hass.async_add_executor_job(
+            frontend.add_extra_js_url, hass, CARDS_URL
+        )
         
         _LOGGER.info("Lovelace resource registered successfully")
         _LOGGER.info("Transformers cards are now automatically available in Lovelace")
