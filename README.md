@@ -124,17 +124,11 @@ frontend:
 
 ## 🎴 Using the Cards
 
-### Adding Cards as a Resource
+### Automatic Card Registration
 
-The cards JavaScript is automatically available after installation. Add it as a resource:
+The Transformers cards are **automatically registered** when you install the integration. No manual resource addition is required!
 
-1. Go to **Settings** → **Dashboards**
-2. Click the **⋮** menu in the top right
-3. Select **Resources**
-4. Click **"+ Add Resource"**
-5. Enter URL: `/local/transformers/transformers-cards.js`
-6. Select Resource Type: **JavaScript Module**
-7. Click **"Create"**
+After installation and restart, you can immediately use the cards in your Lovelace dashboards.
 
 ### Card Examples
 

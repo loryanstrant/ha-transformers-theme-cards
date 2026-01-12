@@ -6,6 +6,7 @@ This integration provides:
 - Eleven custom Lovelace cards with Transformers styling
 - Authentic Transformers Movie font integration
 - Automatic installation of all dependencies
+- Automatic Lovelace resource registration
 
 For more details about this integration, please refer to the documentation at
 https://github.com/loryanstrant/ha-transformers-theme-cards
@@ -19,12 +20,15 @@ import shutil
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.components.lovelace import dashboard
 
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = "transformers_theme_cards"
 
 __version__ = "1.0.0"
+
+CARDS_URL = "/local/transformers/transformers-cards.js"
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
@@ -100,7 +104,35 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     _LOGGER.info("Transformers Theme & Cards integration setup complete")
     _LOGGER.info("Themes installed to: %s", themes_dir)
     _LOGGER.info("Cards and fonts installed to: %s", www_transformers_dir)
-    _LOGGER.info("Please reload themes and add cards resource: /local/transformers/transformers-cards.js")
+    
+    # Register the Lovelace resource
+    _LOGGER.info("Registering Lovelace resource: %s", CARDS_URL)
+    
+    # Register static path for the cards
+    hass.http.register_static_path(
+        CARDS_URL,
+        str(www_transformers_dir / "transformers-cards.js"),
+        cache_headers=True
+    )
+    
+    # Add the resource to Lovelace resources
+    try:
+        # Use the lovelace component to add extra JS URL
+        if "lovelace" not in hass.data:
+            hass.data["lovelace"] = {"resources": []}
+        
+        # Add our resource to the lovelace resources
+        hass.components.frontend.add_extra_js_url(hass, CARDS_URL)
+        
+        _LOGGER.info("Lovelace resource registered successfully")
+        _LOGGER.info("Transformers cards are now automatically available in Lovelace")
+        
+    except Exception as err:
+        _LOGGER.warning(
+            "Could not automatically register Lovelace resource: %s. "
+            "You may need to add it manually via Settings > Dashboards > Resources",
+            err
+        )
     
     return True
 

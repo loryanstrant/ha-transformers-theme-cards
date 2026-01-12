@@ -31,9 +31,7 @@ Official Transformers Movie font automatically installed for both themes and car
 3. **Restart Home Assistant** (twice - once to load integration, once to apply themes)
 4. **Install card-mod** (REQUIRED - search in HACS Frontend section)
 5. **Apply a theme** from your profile or dashboard view settings
-6. **Add cards resource** (Settings → Dashboards → Resources):
-   - URL: `/local/transformers/transformers-cards.js`
-   - Type: JavaScript Module
+6. **Use the cards** - They're automatically registered, no manual resource addition needed!
 
 ## Quick Start
 
@@ -57,7 +55,7 @@ message: ALL SYSTEMS OPERATIONAL
 
 ✅ **Font is automatic** - No manual installation needed. The font is included and will load automatically.
 
-📁 **Cards location** - After installation, cards are at `/local/transformers/transformers-cards.js`
+✅ **Cards are automatic** - No need to manually add resources. Cards are automatically registered!
 
 ## Support
 

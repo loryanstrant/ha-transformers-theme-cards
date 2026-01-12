@@ -14,7 +14,8 @@ When you add `transformers_theme_cards:` to your `configuration.yaml` and restar
 
 1. Copies all theme files from `custom_components/transformers_theme_cards/themes/` to `config/themes/`
 2. Copies all www files (cards and fonts) from `custom_components/transformers_theme_cards/www/` to `config/www/transformers/`
-3. Logs the installation paths for verification
+3. Automatically registers the Lovelace cards resource
+4. Logs the installation paths for verification
 
 ## Installation via HACS
 
@@ -48,14 +49,9 @@ The themes **require** card-mod to function properly:
 **Option B: Per-view**
 - Edit Dashboard → Edit View → Theme → Select variant
 
-### 3. Add Cards Resource
+### 3. Use the Cards
 
-To use the custom cards:
-1. Settings → Dashboards → Resources (⋮ menu → Resources)
-2. Add Resource:
-   - URL: `/local/transformers/transformers-cards.js`
-   - Resource Type: JavaScript Module
-3. Click Create
+The custom cards are **automatically registered** - no manual resource addition needed! Just start using them in your Lovelace dashboards.
 
 ## File Locations After Installation
 
