@@ -64,6 +64,12 @@ The integration will automatically:
 - Install cards JavaScript to `config/www/transformers/`
 - Install fonts to `config/www/transformers/fonts/`
 
+**Why two restarts?**
+- First restart: Loads the integration and installs files
+- Second restart: Home Assistant reads the newly installed theme files
+
+This is a one-time setup requirement. After the initial installation, no further restarts are needed for theme changes.
+
 ### Method 2: Manual Installation
 
 1. Download this repository

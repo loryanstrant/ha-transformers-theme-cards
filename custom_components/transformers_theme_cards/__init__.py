@@ -43,31 +43,59 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     # Run file operations in executor to avoid blocking
     def install_files():
         """Install theme and www files."""
-        # Ensure directories exist
-        themes_dir.mkdir(exist_ok=True)
-        www_transformers_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            # Ensure directories exist
+            themes_dir.mkdir(exist_ok=True)
+            www_transformers_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Copy theme files
+            source_themes_dir = integration_dir / "themes"
+            if source_themes_dir.exists():
+                for theme_file in source_themes_dir.glob("*.yaml"):
+                    dest_file = themes_dir / theme_file.name
+                    _LOGGER.info(f"Installing theme file: {theme_file.name}")
+                    shutil.copy2(theme_file, dest_file)
+            
+            # Copy www files (fonts and cards)
+            source_www_dir = integration_dir / "www"
+            if source_www_dir.exists():
+                # Copy all files from www/transformers to config/www/transformers
+                # Note: This replaces the entire directory to ensure clean installation
+                # If you have custom files, store them elsewhere
+                source_transformers = source_www_dir / "transformers"
+                if source_transformers.exists():
+                    _LOGGER.info("Installing fonts and cards to www/transformers")
+                    if www_transformers_dir.exists():
+                        _LOGGER.debug("Removing existing www/transformers directory")
+                        shutil.rmtree(www_transformers_dir)
+                    shutil.copytree(source_transformers, www_transformers_dir)
+        except PermissionError as err:
+            _LOGGER.error(
+                "Permission denied while installing files. Please check directory permissions: %s",
+                err
+            )
+            return False
+        except OSError as err:
+            _LOGGER.error(
+                "Failed to install files. Check disk space and permissions: %s",
+                err
+            )
+            return False
+        except Exception as err:
+            _LOGGER.error(
+                "Unexpected error during file installation: %s",
+                err
+            )
+            return False
         
-        # Copy theme files
-        source_themes_dir = integration_dir / "themes"
-        if source_themes_dir.exists():
-            for theme_file in source_themes_dir.glob("*.yaml"):
-                dest_file = themes_dir / theme_file.name
-                _LOGGER.info(f"Installing theme file: {theme_file.name}")
-                shutil.copy2(theme_file, dest_file)
-        
-        # Copy www files (fonts and cards)
-        source_www_dir = integration_dir / "www"
-        if source_www_dir.exists():
-            # Copy all files from www/transformers to config/www/transformers
-            source_transformers = source_www_dir / "transformers"
-            if source_transformers.exists():
-                _LOGGER.info("Installing fonts and cards to www/transformers")
-                if www_transformers_dir.exists():
-                    shutil.rmtree(www_transformers_dir)
-                shutil.copytree(source_transformers, www_transformers_dir)
+        return True
     
     # Run in executor to avoid blocking
-    await hass.async_add_executor_job(install_files)
+    result = await hass.async_add_executor_job(install_files)
+    
+    if not result:
+        _LOGGER.error("Transformers Theme & Cards integration setup failed")
+        return False
     
     _LOGGER.info("Transformers Theme & Cards integration setup complete")
     _LOGGER.info("Themes installed to: %s", themes_dir)
