@@ -112,12 +112,8 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     # Register the Lovelace resource
     _LOGGER.info("Registering Lovelace resource: %s", CARDS_URL)
     
-    # Register static path for the cards
-    hass.http.register_static_path(
-        CARDS_URL,
-        str(www_transformers_dir / "transformers-cards.js"),
-        cache_headers=True
-    )
+    # Note: Files in config/www/ are automatically served via /local/ by Home Assistant
+    # No need to explicitly register static paths
     
     # Add the resource to Lovelace resources
     try:
