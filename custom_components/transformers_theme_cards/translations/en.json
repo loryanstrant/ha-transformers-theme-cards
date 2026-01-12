@@ -1,0 +1,11 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Transformers Theme & Cards",
+        "description": "This integration automatically installs Transformers themes, cards, and fonts to your Home Assistant."
+      }
+    }
+  },
+  "title": "Transformers Theme & Cards"
+}

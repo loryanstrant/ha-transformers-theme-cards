@@ -6,6 +6,8 @@
 
 A complete Transformers-themed integration for Home Assistant that combines beautiful themes and custom cards with authentic Transformers typography. Transform your Home Assistant interface with the iconic aesthetic of the Transformers franchise!
 
+**This is a custom integration** that automatically installs themes, cards, and fonts when you add it to your Home Assistant configuration.
+
 ## ✨ Features
 
 - **🎨 Four Complete Themes**: Dark, Light, Silver (Retro), and Dirty Metal (Modern) variants
@@ -39,25 +41,43 @@ All cards feature angular, tech-inspired designs with authentic Transformers sty
 ### Method 1: HACS (Recommended)
 
 1. Open HACS in your Home Assistant instance
-2. Go to the **Frontend** section
+2. Go to the **Integrations** section
 3. Click the **"+"** button in the bottom right
 4. Search for **"Transformers Theme & Cards"**
 5. Click **"Download"**
-6. Restart Home Assistant
-
-### Method 2: Manual Installation
-
-1. Download this repository
-2. Copy the `themes` folder to your Home Assistant `config` directory
-3. Copy the `www` folder to your Home Assistant `config` directory
-4. Add the following to your `configuration.yaml`:
+6. **Restart Home Assistant**
+7. Add the integration to `configuration.yaml`:
 
 ```yaml
+# Add to configuration.yaml
+transformers_theme_cards:
+
+# Also ensure themes are enabled
 frontend:
   themes: !include_dir_merge_named themes
 ```
 
-5. Restart Home Assistant
+8. **Restart Home Assistant again**
+
+The integration will automatically:
+- Install all 4 theme files to `config/themes/`
+- Install cards JavaScript to `config/www/transformers/`
+- Install fonts to `config/www/transformers/fonts/`
+
+### Method 2: Manual Installation
+
+1. Download this repository
+2. Copy the `custom_components/transformers_theme_cards` folder to your Home Assistant `config/custom_components/` directory
+3. Add to your `configuration.yaml`:
+
+```yaml
+transformers_theme_cards:
+
+frontend:
+  themes: !include_dir_merge_named themes
+```
+
+4. Restart Home Assistant twice (first to load integration, second to apply themes)
 
 ## 🎨 Using the Themes
 
@@ -167,16 +187,22 @@ For complete card documentation and all 11 card types, see the [Cards Documentat
 
 ```
 ha-transformers-theme-cards/
-├── themes/
-│   └── transformers-themes.yaml      # All 4 theme variants
-├── www/
-│   └── transformers/
-│       ├── fonts/
-│       │   ├── TransformersMovie-y9Ad.ttf
-│       │   └── transformers-fonts.css
-│       └── transformers-cards.js     # All 11 cards bundled
-├── hacs.json                          # HACS metadata
-├── README.md                          # This file
+├── custom_components/
+│   └── transformers_theme_cards/
+│       ├── __init__.py                    # Integration setup logic
+│       ├── manifest.json                  # Integration metadata
+│       ├── services.yaml                  # Services definition
+│       ├── themes/
+│       │   └── transformers-themes.yaml   # All 4 theme variants
+│       └── www/
+│           └── transformers/
+│               ├── fonts/
+│               │   ├── TransformersMovie-y9Ad.ttf
+│               │   └── transformers-fonts.css
+│               └── transformers-cards.js  # All 11 cards bundled
+├── hacs.json                               # HACS metadata
+├── info.md                                 # HACS store display
+├── README.md                               # This file
 └── LICENSE
 ```
 
