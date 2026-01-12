@@ -1,0 +1,20 @@
+/* Transformers Movie Font - Authentic Transformers typography */
+/* License: Freeware, Non-Commercial */
+/* Source: https://www.fontspace.com/transformers-movie-font-f34560 */
+
+@font-face {
+  font-family: 'Transformers Movie';
+  src: url('/local/transformers/fonts/TransformersMovie-y9Ad.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Usage Note:
+   The Transformers Movie font is available for use in both themes and cards.
+   
+   In cards: The font is bundled with the cards JavaScript and loaded automatically.
+   In themes: The font is loaded via card-mod using the path /local/transformers/fonts/
+   
+   This provides an authentic Transformers aesthetic throughout the interface.
+*/
