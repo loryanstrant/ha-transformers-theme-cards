@@ -330,6 +330,7 @@ const $=globalThis,w=$.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=
           opacity: 0.8;
           text-transform: uppercase;
           letter-spacing: 1px;
+          font-family: var(--transformers-font-family);
         }
 
         .system-message {
@@ -747,12 +748,14 @@ const $=globalThis,w=$.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=
           letter-spacing: 2px;
           margin-top: 12px;
           opacity: 0.9;
+          font-family: var(--transformers-font-family);
         }
 
         .timezone-display {
           font-size: 0.9em;
           margin-top: 8px;
           opacity: 0.7;
+          font-family: var(--transformers-font-family);
         }
 
         .time-separator {
