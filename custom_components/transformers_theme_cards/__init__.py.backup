@@ -20,6 +20,7 @@ import shutil
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.components.lovelace import dashboard
 from homeassistant.components import frontend
 import homeassistant.helpers.config_validation as cv
 
@@ -113,20 +114,24 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     _LOGGER.info("Registering Lovelace resource: %s", CARDS_URL)
     
     # Note: Files in config/www/ are automatically served via /local/ by Home Assistant
-    # The cards JavaScript file will self-register via window.customCards
+    # No need to explicitly register static paths
     
-    # Register the resource with the frontend so it loads automatically
+    # Add the resource to Lovelace resources
     try:
-        frontend.add_extra_js_url(hass, CARDS_URL)
+        # Use the frontend component to add extra JS URL
+        # Access the frontend component through hass.data
+        await hass.async_add_executor_job(
+            frontend.add_extra_js_url, hass, CARDS_URL
+        )
+        
         _LOGGER.info("Lovelace resource registered successfully")
         _LOGGER.info("Transformers cards are now automatically available in Lovelace")
+        
     except Exception as err:
         _LOGGER.warning(
             "Could not automatically register Lovelace resource: %s. "
-            "The cards JavaScript file is available at %s. "
             "You may need to add it manually via Settings > Dashboards > Resources",
-            err,
-            CARDS_URL
+            err
         )
     
     return True

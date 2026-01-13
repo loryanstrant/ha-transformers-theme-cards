@@ -330,6 +330,7 @@ const $=globalThis,w=$.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=
           opacity: 0.8;
           text-transform: uppercase;
           letter-spacing: 1px;
+          font-family: var(--transformers-font-family);
         }
 
         .system-message {
@@ -747,12 +748,14 @@ const $=globalThis,w=$.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=
           letter-spacing: 2px;
           margin-top: 12px;
           opacity: 0.9;
+          font-family: var(--transformers-font-family);
         }
 
         .timezone-display {
           font-size: 0.9em;
           margin-top: 8px;
           opacity: 0.7;
+          font-family: var(--transformers-font-family);
         }
 
         .time-separator {
@@ -1471,3 +1474,4 @@ const $=globalThis,w=$.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=
       </div>
     `}_getStateClass(t){return"triggered"===t?"triggered":t.includes("pending")||t.includes("arming")?"pending":t.includes("armed")?"armed":""}_formatState(t){return t.replace(/_/g," ").toUpperCase()}_handleKeyPress(t){"CLR"===t?this._code="":"OK"===t?this.requestUpdate():this._code+=t.toString(),this.requestUpdate()}_armAway(){this.hass.callService("alarm_control_panel","alarm_arm_away",{entity_id:this.config.entity,code:this._code||void 0}),this._code="",this.requestUpdate()}_armHome(){this.hass.callService("alarm_control_panel","alarm_arm_home",{entity_id:this.config.entity,code:this._code||void 0}),this._code="",this.requestUpdate()}_disarm(){this.hass.callService("alarm_control_panel","alarm_disarm",{entity_id:this.config.entity,code:this._code||void 0}),this._code="",this.requestUpdate()}static getStubConfig(){return{title:"SECURITY SYSTEM",entity:"",show_keypad:!0}}}),window.customCards=window.customCards||[],window.customCards.push({type:"transformers-status-card",name:"Transformers Status Card",description:"Display system status in Transformers style",preview:!0}),window.customCards.push({type:"transformers-sensor-card",name:"Transformers Sensor Card",description:"Display sensor data with Transformers aesthetics",preview:!0}),window.customCards.push({type:"transformers-button-card",name:"Transformers Button Card",description:"Control entities with Transformers-style buttons",preview:!0}),window.customCards.push({type:"transformers-text-card",name:"Transformers Text Card",description:"Display text messages in Transformers format",preview:!0}),window.customCards.push({type:"transformers-gauge-card",name:"Transformers Gauge Card",description:"Display gauge visualization for numeric sensors",preview:!0}),window.customCards.push({type:"transformers-clock-card",name:"Transformers Clock Card",description:"Display current time in Transformers format",preview:!0}),window.customCards.push({type:"transformers-glance-card",name:"Transformers Glance Card",description:"Compact multi-entity overview in Transformers style",preview:!0}),window.customCards.push({type:"transformers-light-card",name:"Transformers Light Card",description:"Control lights with Transformers-style interface",preview:!0}),window.customCards.push({type:"transformers-picture-card",name:"Transformers Picture Card",description:"Display images and camera feeds in Transformers style",preview:!0}),window.customCards.push({type:"transformers-weather-card",name:"Transformers Weather Card",description:"Display weather information in Transformers format",preview:!0}),window.customCards.push({type:"transformers-alarm-card",name:"Transformers Alarm Card",description:"Control alarm systems with Transformers-style keypad",preview:!0}),console.info("%c TRANSFORMERS CARDS %c v1.0.0 ","color: #e31e24; background: #000; font-weight: bold;","color: #000; background: #e31e24; font-weight: bold;"),console.info("More than meets the eye - Transformers");
 //# sourceMappingURL=transformers-cards.js.map
+export default {};
